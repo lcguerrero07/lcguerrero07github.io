@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>José Supply Barbershop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        header, footer {
+            background-color: #333;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="date"], input[type="number"], input[type="password"], select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .total-price, .admin-section {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .nav-buttons {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .nav-buttons button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .nav-buttons button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>José Supply Barbershop</h1>
+    </header>
+
+    <div class="nav-buttons">
+        <button onclick="showSection('registerSection')">Registrarse como Usuario</button>
+        <button onclick="showSection('reservationSection')">Reservar Cita</button>
+        <button onclick="showSection('adminLoginSection')">Entrar como Administrador</button>
+    </div>
+
+    <!-- Sección de Registro de Usuarios -->
+    <div class="container" id="registerSection">
+        <h2>Registro de Usuario</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="userName">Nombre del Usuario:</label>
+                <input type="text" id="userName" name="userName" required>
+            </div>
+            <div class="form-group">
+                <label for="userPhone">Número de Teléfono:</label>
+                <input type="text" id="userPhone" name="userPhone" required>
+            </div>
+            <button type="submit" class="submit-btn">Registrarse</button>
+        </form>
+    </div>
+
+    <!-- Sección de Reserva de Citas -->
+    <div class="container" id="reservationSection">
+        <h2>Formulario de Reserva de Citas</h2>
+        <form id="reservationForm">
+            <div class="form-group">
+                <label for="clientName">Nombre del Cliente:</label>
+                <input type="text" id="clientName" name="clientName" required>
+            </div>
+            <div class="form-group">
+                <label for="barber">Seleccione el Barbero:</label>
+                <select id="barber" name="barber" required>
+                    <option value="">-- Seleccione --</option>
+                    <option value="jose">José Antigua (RD$500)</option>
+                    <option value="gustavo">Gustavo (RD$300)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date">Fecha de la Cita:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Horario:</label>
+                <select id="time" name="time" required>
+                    <option value="">-- Seleccione --</option>
+                    <option value="9:00 AM">9:00 AM</option>
+                    <option value="10:00 AM">10:00 AM</option>
+                    <option value="11:00 AM">11:00 AM</option>
+                    <option value="12:00 PM">12:00 PM</option>
+                    <option value="2:00 PM">2:00 PM</option>
+                    <option value="3:00 PM">3:00 PM</option>
+                    <option value="4:00 PM">4:00 PM</option>
+                </select>
+            </div>
+            <button type="submit" class="submit-btn">Reservar Cita</button>
+        </form>
+    </div>
+
+    <!-- Sección de Inicio de Sesión de Administrador -->
+    <div class="container" id="adminLoginSection">
+        <h2>Inicio de Sesión - Administrador</h2>
+        <form id="adminLoginForm">
+            <div class="form-group">
+                <label for="adminUser">Usuario:</label>
+                <input type="text" id="adminUser" name="adminUser" required>
+            </div>
+            <div class="form-group">
+                <label for="adminPass">Contraseña:</label>
+                <input type="password" id="adminPass" name="adminPass" required>
+            </div>
+            <button type="submit" class="submit-btn">Entrar</button>
+        </form>
+    </div>
+
+    <!-- Sección de Administración -->
+    <div class="container" id="adminSection">
+        <h2>Panel de Administración</h2>
+        <div class="admin-section">
+            <h3>Usuarios Registrados</h3>
+            <ul id="userList"></ul>
+        </div>
+        <div class="admin-section">
+            <h3>Citas Reservadas</h3>
+            <ul id="appointmentList"></ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 José Supply Barbershop</p>
+    </footer>
+
+    <script>
+        let registeredUsers = [];
+        let appointments = []; // Arreglo para almacenar las citas
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.container').forEach(section => section.style.display = 'none');
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        // Registrar Usuario
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('userName').value;
+            const phone = document.getElementById('userPhone').value;
+            const timestamp = new Date().toLocaleString();
+
+            registeredUsers.push({ name, phone, timestamp });
+            alert("¡Usuario registrado con éxito!");
+            document.getElementById('registerForm').reset();
+        });
+
+        // Registro de Citas
+        document.getElementById('reservationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const clientName = document.getElementById('clientName').value;
+            const barber = document.getElementById('barber').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+
+            const barberName = barber === 'jose' ? 'José Antigua' : 'Gustavo';
+            const timestamp = new Date().toLocaleString();
+
+            // Guardar la cita en el arreglo de citas
+            appointments.push({ clientName, barberName, date, time, timestamp });
+            alert("¡Cita reservada con éxito!");
+
+            document.getElementById('reservationForm').reset();
+        });
+
+        // Inicio de Sesión de Administrador
+        document.getElementById('adminLoginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const user = document.getElement
